@@ -26,13 +26,13 @@ public class ZombiController : MonoBehaviour
         _realSpeedAnimation = _realSpeed * aniSpeed;
         _audio.pitch = aniSpeed*_realSpeed-0.4f;
         _thisAni.SetFloat("Speed", _realSpeedAnimation);
-        _jdun = true;
-        StartCoroutine(JustWait());
+        _ch.enabled = false;        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        
         _distance = (_thisTR.position.x - player.position.x) * (_thisTR.position.x - player.position.x) + (_thisTR.position.z - player.position.z) * (_thisTR.position.z - player.position.z);
         MovementAndRotation();
         AnimationController();
@@ -41,7 +41,7 @@ public class ZombiController : MonoBehaviour
 
     private void SavePositionY()
     {
-        _thisTR.position = new Vector3(_thisTR.position.x, 0, _thisTR.position.z);
+        _thisTR.position = new Vector3(_thisTR.position.x, 0.01f, _thisTR.position.z);
     }
 
     private void MovementAndRotation()
@@ -55,7 +55,7 @@ public class ZombiController : MonoBehaviour
         {
             _ch.Move(Vector3.zero);
         }
-                          
+              
     }
 
     private void AnimationController()
@@ -79,11 +79,5 @@ public class ZombiController : MonoBehaviour
         }
        
     }
-
-    IEnumerator JustWait()
-    {
-        yield return new WaitForSeconds(0.1f);
-        _jdun = false;
-
-    }
+   
 }

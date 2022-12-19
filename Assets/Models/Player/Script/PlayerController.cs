@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
          GunController();
+        if (Input.GetKeyDown(KeyCode.R)) gunAnimator.SetTrigger("Reload");
     }
 
     private void FixedUpdate()
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             PlayerMovement();
-        }
+        }       
         SavePositionY();
     }
 

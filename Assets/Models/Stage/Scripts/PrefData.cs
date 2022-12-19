@@ -29,29 +29,33 @@ public class PrefData : MonoBehaviour
 
     public void  RespawnZombi()
     {
-        StartCoroutine(REspawn());
+        _intZombi = Random.Range(minZombi, maxZombi);
+        for (int i = 0; i <= _intZombi; i++)
+        {
+            int Zombi = 1;
+            int j = Random.Range(0, _respZombi.Length);
+            int x = Random.Range(-4, +4);
+            int y = Random.Range(-4, +4);
+
+            GameObject enemy = PollerObject.Instance.GetObject(zombi);                 
+
+            enemy.GetComponent<ZombiController>().player = player;
+            enemy.transform.position = _respZombi[j].position + new Vector3(x, 0.01f, y);
+            StartCoroutine(CharacterOn(enemy));
+            Debug.Log(Zombi);
+            Zombi++;
+        }
     }   
+
+    IEnumerator CharacterOn(GameObject enemy)
+    {
+        yield return new WaitForSeconds(1f);
+        enemy.GetComponent<CharacterController>().enabled = true;
+    }
 
     public void Destroy()
     {
         Destroy(this.gameObject);
     }
-
-    IEnumerator REspawn()
-    {
-        yield return new WaitForSeconds(1f);
-        _intZombi = Random.Range(minZombi, maxZombi);
-        for (int i = 0; i <= _intZombi; i++)
-        {
-            int j = Random.Range(0, _respZombi.Length);
-            int x = Random.Range(-2, +2);
-            int y = Random.Range(-2, +2);         
-
-            GameObject enemy = PollerObject.Instance.GetObject(zombi);
-            enemy.transform.position = _respZombi[j].position + new Vector3(x, 0, y);//new Vector3(_respZombi[j].position.x + x, 0, _respZombi[j].position.z + y);
-
-            enemy.GetComponent<ZombiController>().player = player;
-        }
-
-    }
+   
 }

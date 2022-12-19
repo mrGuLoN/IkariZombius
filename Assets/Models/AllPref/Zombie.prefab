@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  minSpeed: 2
+  minSpeed: 3.4
   maxSpeed: 4
   distanceAttack: 1
   aniSpeed: 0.5
