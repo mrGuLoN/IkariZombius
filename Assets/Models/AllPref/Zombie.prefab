@@ -872,6 +872,9 @@ MonoBehaviour:
   stageTerrain:
     serializedVersion: 2
     m_Bits: 1024
+  booster:
+  - {fileID: 7793249490134821927, guid: 9fe6ca527ab5dcd4485c58c0b933c345, type: 3}
+  - {fileID: 7013638883479484804, guid: a5e396dbe6076a84bac482a8d3cb67d4, type: 3}
 --- !u!114 &3307656925096668081
 MonoBehaviour:
   m_ObjectHideFlags: 0

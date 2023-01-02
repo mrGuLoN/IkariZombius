@@ -6,8 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LayerMask layerGunPlane;
     [SerializeField] private float speed, health;
-    [SerializeField] private Transform bonePointRotation, pointRotation;
+    [SerializeField] private Transform bonePointRotation, pointRotation, gunInHand, gunOnSpine;
     [SerializeField] private Animator gunAnimator;
+    [SerializeField] private GameObject gun1, gun2;
     private Transform _thisTransform;
     private Health _health;
     private PlayerAnimation _playerAnimation;
@@ -98,5 +99,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void UpDateAmmo(int intMagazine)
+    {
+        gunAnimator.transform.gameObject.GetComponent<GunController>().UpDateAmmo(intMagazine);
+    }
 
 }

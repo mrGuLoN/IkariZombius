@@ -109,7 +109,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   end: {fileID: 4083482511667683561}
+  player: {fileID: 0}
   speed: 0
+  minZombi: 0
+  maxZombi: 0
+  _respZombi: []
+  zombi: 0
 --- !u!54 &-2354915330263646899
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -125,4 +130,4 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1

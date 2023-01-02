@@ -29,4 +29,11 @@ public class Health : MonoBehaviour
     {
         _currentHealth = maxHealth;       
     }
+
+    public void HealthUp(int health)
+    {
+        _currentHealth += health;
+        if (_currentHealth > 100) _currentHealth = 100;
+        _healthHud(_currentHealth);
+    }
 }

@@ -18,8 +18,7 @@ public class PrefData : MonoBehaviour
     {
         _thisTransform = GetComponent<Transform>();
         _rb = GetComponent<Rigidbody>();
-        _rb.velocity = new Vector3(0, 0, -1 * speed);
-        RespawnZombi();       
+        _rb.velocity = new Vector3(0, 0, -1 * speed);            
     }
 
     private void FixedUpdate()

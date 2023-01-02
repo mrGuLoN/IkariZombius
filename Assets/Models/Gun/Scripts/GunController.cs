@@ -66,4 +66,10 @@ public class GunController : MonoBehaviour
     {
         reloadSound.Play();
     }
+
+    public void UpDateAmmo(int intMagazine)
+    {
+        ammo += magazine * intMagazine;
+        _ammoHud(_currentAmmoInMagazine, ammo);
+    }
 }
