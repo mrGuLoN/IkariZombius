@@ -6,8 +6,8 @@ public class GunController : MonoBehaviour
 {
     [SerializeField] private Transform firePoint;
     [SerializeField] private PollerObject.ObjectInfo.ObjectType bullet;
-    [SerializeField] private float damage, speedBullet;
-    [SerializeField] private int magazine, ammo;
+    [SerializeField] private float damage, speedBullet, split;
+    [SerializeField] private int magazine, ammo, pelvis;
     [SerializeField] private AudioSource reloadSound;
 
     public delegate void AmmoHUD(int magazine, int allAmmo);
@@ -17,6 +17,7 @@ public class GunController : MonoBehaviour
     private AudioSource _audioFire;
     private Animator _ani;
     private int _currentAmmoInMagazine;
+    private float _realSpeed, _bulletSplit;
 
     void Start()
     {
@@ -33,13 +34,25 @@ public class GunController : MonoBehaviour
     }
 
     public void Fire()
-    {       
-        _bullet = PollerObject.Instance.GetObject(bullet);
-        _audioFire.Play();
-        _bullet.transform.position = firePoint.position;
-        _bullet.transform.rotation = firePoint.rotation;        
-        _bullet.transform.forward = -1*firePoint.forward;
-        _bullet.GetComponent<BulletController>().UpDateData(damage, speedBullet, firePoint.position);
+    {
+        for (int i = 0; i < pelvis; i++)
+        {
+            _bullet = PollerObject.Instance.GetObject(bullet);
+            _audioFire.Play();
+            _bullet.transform.position = firePoint.position;
+            _bullet.transform.rotation = firePoint.rotation;
+            _bulletSplit = Random.Range(-split, split);
+            _bullet.transform.forward = -1 * firePoint.forward + firePoint.TransformDirection( new Vector3(_bulletSplit, 0, 0));
+            if (pelvis >1)
+            {
+                _realSpeed = Random.Range(speedBullet * 0.9f, speedBullet * 1.1f);
+            }
+            else
+            {
+                _realSpeed = speedBullet;
+            }
+            _bullet.GetComponent<BulletController>().UpDateData(damage, _realSpeed, firePoint.position);
+        }
         _currentAmmoInMagazine--;
         if (_currentAmmoInMagazine <= 0)
         {
