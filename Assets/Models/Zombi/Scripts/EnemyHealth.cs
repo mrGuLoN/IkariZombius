@@ -8,9 +8,10 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private GameObject[] booster;
     private Rigidbody[] _ragdollRb;
     private Collider[] _colliders;
-    private ZombiController _zb;   
+    private NewEnemyController _zb;   
     private Animator _ani;
     private CharacterController _ch;
+    private bool _dead;
 
     public delegate void ZombieInt(int zombie);
     public static event ZombieInt _zombieInt;
@@ -24,7 +25,7 @@ public class EnemyHealth : MonoBehaviour
         _ragdollRb = GetComponentsInChildren<Rigidbody>();
         _colliders = GetComponentsInChildren<Collider>();
         _thisTr = GetComponent<Transform>();
-        _zb = GetComponent<ZombiController>();
+        _zb = GetComponent<NewEnemyController>();
         _ch = GetComponent<CharacterController>();       
         Alive();
         StartBuild();        
@@ -34,6 +35,14 @@ public class EnemyHealth : MonoBehaviour
         _zombieInt(1);
     }
 
+    private void FixedUpdate()
+    {
+        if (_dead)
+        {
+            _thisTr.position -= 5 * Vector3.forward * Time.deltaTime;
+        }
+    }
+
 
 
     public void Alive()
@@ -41,6 +50,7 @@ public class EnemyHealth : MonoBehaviour
         _zb.enabled = true;
         _ani.enabled = true;
         _ch.enabled = true;
+        _dead = false;
         
         for (int i = 0; i < _ragdollRb.Length; i++)
         {
@@ -62,6 +72,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void Death()
     {
+        _dead = true;
         RaycastHit hit = new RaycastHit();
         if (Physics.Raycast(_thisTr.position, Vector3.down, out hit, 3f, stageTerrain))
         {
@@ -84,7 +95,16 @@ public class EnemyHealth : MonoBehaviour
             _ragdollRb[i].isKinematic = false;            
             if (i != 0) _colliders[i].isTrigger = false;            
         }
+
+        StartCoroutine(Destroyer());
         _zombieInt(-1);       
+    }
+
+    IEnumerator Destroyer()
+    {
+        yield return new WaitForSeconds(5f);
+        PollerObject.Instance.DestroyGameObject(this.gameObject);
+        _ch.enabled = false;
     }
 
     public void UpdateHealth(float health)

@@ -14,15 +14,13 @@ public class PlayerAnimation : MonoBehaviour
     }
 
     public void IdleMove(float loockX, float loockZ)
-    {
-        _animator.SetBool("InputOn", false);
+    {       
         _animator.SetFloat("LoockX", loockX);
         _animator.SetFloat("LoockZ", loockZ);
     }
 
     public void Move(float loockX, float loockZ)
-    {
-        _animator.SetBool("InputOn", true);
+    {       
         _animator.SetFloat("LoockX", loockX);
         _animator.SetFloat("LoockZ", loockZ);
     }

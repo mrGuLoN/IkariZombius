@@ -56,7 +56,7 @@ public class GunController : MonoBehaviour
         _currentAmmoInMagazine--;
         if (_currentAmmoInMagazine <= 0)
         {
-            _ani.SetTrigger("Reload");
+            //_ani.SetTrigger("Reload");
         }
         _ammoHud(_currentAmmoInMagazine, ammo);
     }

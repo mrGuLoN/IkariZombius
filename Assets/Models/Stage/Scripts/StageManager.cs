@@ -56,7 +56,8 @@ public class StageManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         RoadBulding();
-        other.transform.parent.gameObject.GetComponent<PrefData>().Destroy();
+        Debug.Log(other);
+        other.transform.gameObject.GetComponent<PrefData>().Destroy();
     }
 
     private void Zombieint(int zombi)

@@ -17,13 +17,12 @@ public class PrefData : MonoBehaviour
     private void Start()
     {
         _thisTransform = GetComponent<Transform>();
-        _rb = GetComponent<Rigidbody>();
-        _rb.velocity = new Vector3(0, 0, -1 * speed);            
+        _rb = GetComponent<Rigidbody>();                
     }
 
     private void FixedUpdate()
-    {       
-        _rb.velocity = new Vector3(0, 0, -1 * speed);
+    {               
+        _thisTransform.position -= _thisTransform.forward * speed * Time.deltaTime;
     }
 
     public void  RespawnZombi()
@@ -35,10 +34,9 @@ public class PrefData : MonoBehaviour
             int j = Random.Range(0, _respZombi.Length);
             int x = Random.Range(-4, +4);
             int y = Random.Range(-4, +4);
+            GameObject enemy = PollerObject.Instance.GetObject(zombi);               
 
-            GameObject enemy = PollerObject.Instance.GetObject(zombi);                 
-
-            enemy.GetComponent<ZombiController>().player = player;
+            enemy.GetComponent<NewEnemyController>().player = player;
             enemy.transform.position = _respZombi[j].position + new Vector3(x, 0.01f, y);
             StartCoroutine(CharacterOn(enemy));
             Debug.Log(Zombi);
@@ -54,6 +52,7 @@ public class PrefData : MonoBehaviour
 
     public void Destroy()
     {
+        Debug.Log("Enananan");
         Destroy(this.gameObject);
     }
    

@@ -31,8 +31,7 @@ public class ZombiController : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        
+    {        
         _distance = (_thisTR.position.x - player.position.x) * (_thisTR.position.x - player.position.x) + (_thisTR.position.z - player.position.z) * (_thisTR.position.z - player.position.z);
         MovementAndRotation();
         AnimationController();

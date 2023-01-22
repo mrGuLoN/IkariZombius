@@ -5,9 +5,10 @@ using UnityEngine;
 public class Destroyer : MonoBehaviour
 {
     private Rigidbody _rb;
-    void Awake()
+    public void StartDestroyer()
     {
         _rb = GetComponent<Rigidbody>();
+        Debug.Log("Time to blood Lalalalululu");
         StartCoroutine(Destroy());
     }
 
@@ -16,6 +17,7 @@ public class Destroyer : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         _rb.velocity = Vector3.zero;
+        Debug.Log("Time to blood destroy");
         PollerObject.Instance.DestroyGameObject(this.gameObject); 
     }
 }

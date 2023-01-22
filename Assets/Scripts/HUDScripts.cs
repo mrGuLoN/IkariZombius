@@ -45,11 +45,11 @@ public class HUDScripts : MonoBehaviour
 
         if (hp <30)
         {
-            _ani.SetBool("LowHP", true);
+            //_ani.SetBool("LowHP", true);
         }
         else
         {
-            _ani.SetBool("LowHP", false);
+           // _ani.SetBool("LowHP", false);
         }
     }
 

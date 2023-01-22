@@ -10,15 +10,16 @@ public class BulletController : MonoBehaviour
     [SerializeField] PollerObject.ObjectInfo.ObjectType blood, wall, glass;
 
     private Vector3 _previousStep, _direction, _firstPoint;
+    private Transform _thisTR;
     private float _damage, _distance;
     private Rigidbody _rb;
     private float _timer;
-    private Transform _thisTransform, _startTransform;
+    private Transform _thisTransform;
     private TrailRenderer _trailRender;
     
     void Awake()
     {
-        _timer = 0;
+        _timer = 0;        
         _rb = GetComponent<Rigidbody>();
         _thisTransform = GetComponent<Transform>();
         _trailRender = GetComponent<TrailRenderer>();
@@ -49,7 +50,8 @@ public class BulletController : MonoBehaviour
                 GameObject hole = PollerObject.Instance.GetObject(blood);                       
                 _direction = hit.point - _firstPoint;
                 hole.transform.position = hit.point;
-                hole.transform.up = _direction.normalized;
+                hole.transform.forward = _direction.normalized;
+                hole.GetComponent<Destroyer>().StartDestroyer();
                 RaycastHit hit2 = new RaycastHit();
                 if (Physics.Raycast(hit.point, Vector3.down, out hit2, 5f, stageTerrain))
                 {                   
@@ -65,15 +67,14 @@ public class BulletController : MonoBehaviour
             }
             Destroy();
         }
-        _previousStep = _thisTransform.position;
+        _previousStep = _thisTransform.position;      
     }
 
 
     private void Destroy()
     {
         _timer = 0;
-        _trailRender.enabled = false;
-        
+        _trailRender.enabled = false;       
         _rb.velocity = Vector3.zero;
         PollerObject.Instance.DestroyGameObject(this.gameObject);        
     }
@@ -83,7 +84,7 @@ public class BulletController : MonoBehaviour
         _previousStep = firePoint;
         _firstPoint = firePoint;
         _timer = 0;
-        _rb.velocity = _thisTransform.forward * speed;
+        _rb.velocity = _thisTransform.forward * speed;       
         _damage = damage;
         _trailRender.enabled = true;
     }

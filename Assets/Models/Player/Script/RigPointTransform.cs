@@ -12,7 +12,7 @@ public class RigPointTransform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         _thisTransform.position = gunRigPoint.position;
         _thisTransform.rotation = gunRigPoint.rotation;

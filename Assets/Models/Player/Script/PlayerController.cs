@@ -77,13 +77,12 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement()
     {
         Vector3 direction = _thisTransform.TransformPoint(new Vector3(_movement.x, 0, _movement.y));
-        _playerAnimation.Move(-1*direction.x, -1*direction.z);
+        _playerAnimation.Move(-1*direction.normalized.x, -1*direction.normalized.z);
         _playerMovement.Movement(_movement.x*speed, _movement.y*speed);
     }
 
     private void PointRotationController()
-    {
-        pointRotation.position = bonePointRotation.position;
+    {       
         pointRotation.LookAt(new Vector3(_hitPoint.x, pointRotation.position.y, _hitPoint.z));
     }
 
